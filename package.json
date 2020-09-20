@@ -12,8 +12,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "react-test-renderer": "^16.13.1",
-    "sonarqube-scanner": "^2.7.0"
+    "react-test-renderer": "^16.13.1"
   },
   "scripts": {
     "start": "react-scripts start",
