@@ -1,15 +1,8 @@
 import React, {useState} from 'react';
-import axios from 'axios';
 
-const CurrentWeather = () => {
+const CurrentWeather = props => {
 
-    const weatherapi = {
-        key: "8066be851335adb57c11222b9bddd798",
-        base: "http://api.openweathermap.org/data/2.5/"
-      }
-    
-
-    const [query, setQuery] = useState("London");
+    const [query, setQuery] = useState("");
     const [weather, setWeather] = useState({});
 
     const dateBuilder = date => {
@@ -29,33 +22,39 @@ const CurrentWeather = () => {
 
     }
 
-    const onClickHandler= () => {
+    const search = event => {
         
-        fetch(`${weatherapi.base}weather?q=${query}&units=metric&APPID=${weatherapi.key}`)
-        .then(response => response.json())
-        .then(result => {
-            setWeather(result);
-           console.log(result);
-        })
+        if(event.key === "Enter")
+        {
+            fetch(`${props.weatherapi.base}weather?q=${query}&units=metric&APPID=${props.weatherapi.key}`)
+            .then(response => response.json())
+            .then(result => {
+                setWeather(result);
+                console.log(result);
+                setQuery("");
+            })
+    
+        }
         
-       
     }
 
     return(
         <div>
             <div>
-                <button type="text" onClick={onClickHandler}>Click</button>   
+                <input type="text" placeholder="Search"
+                onChange={(e) => {setQuery(e.target.value)}}
+                value={query}
+                onKeyPress={search}
+                ></input>
             </div>
-
-            {(typeof weather.main != undefined)?(
-                <div>
+            
+           {(typeof weather.main != "undefined")?(
+               <div>
                     <div>{weather.name},{weather.sys.country}</div>
                     <div>{dateBuilder(new Date())}</div>
-                </div>
-            
-            ):("")
-
-            }
+                    <div>{Math.round(weather.main.temp)}*C</div>
+               </div>
+           ):("")}
         </div>
     );
 }
