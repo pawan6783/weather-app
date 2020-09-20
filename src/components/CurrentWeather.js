@@ -13,12 +13,13 @@ const CurrentWeather = props => {
         let days = ["Sunday","Monday", "Tuesday", "Wednesday", 
         "Thursday", "Friday", "Saturday"];
 
-        let d = date.getDate();
-        let day = days[date.getDay()];
-        let month = months[date.getMonth()];
-        let year = date.getFullYear(); 
+        // let day = days[date.getDay()];
+        // let month = months[date.getMonth()];
+        // let year = date.getFullYear(); 
 
-        return `${d} ${day} ${month} ${year}`;
+        let time = date.getHours() + ":" + date.getMinutes();
+
+        return ` ${time}`;
 
     }
 
@@ -50,9 +51,13 @@ const CurrentWeather = props => {
             
            {(typeof weather.main != "undefined")?(
                <div>
-                    <div>{weather.name},{weather.sys.country}</div>
-                    <div>{dateBuilder(new Date())}</div>
+                    <div>{weather.name}</div>
+                    <div>{Math.round(weather.main.temp_max)} | 
+                     {Math.round(weather.main.temp_min)}</div>
                     <div>{Math.round(weather.main.temp)}*C</div>
+                    <div>{weather.weather[0].main}</div>
+                    <div>Updated as of{dateBuilder(new Date())}</div>
+                    
                </div>
            ):("")}
         </div>

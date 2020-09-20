@@ -6,7 +6,7 @@ import Header from '../components/Header';
 function App() {
 
   const weatherapi = {
-    key: "8066be851335adb57c11222b9bddd798",
+    key: "",
     base: "http://api.openweathermap.org/data/2.5/"
   }
 
